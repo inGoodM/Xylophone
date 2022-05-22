@@ -20,10 +20,10 @@ extension UIColor {
 // Extention for views gradient
 
 extension UIView {
-
+    
     func applyGradient(isVertical: Bool, colorArray: [UIColor]) {
         layer.sublayers?.filter({ $0 is CAGradientLayer }).forEach({ $0.removeFromSuperlayer() })
-         
+        
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = colorArray.map({ $0.cgColor })
         if isVertical {
@@ -39,13 +39,12 @@ extension UIView {
         gradientLayer.frame = bounds
         layer.insertSublayer(gradientLayer, at: 0)
     }
-
+    
 }
 
-
 class ViewController: UIViewController {
-
-// make outlets for buttons to make possible to set currentTitle for each button
+    
+    // make outlets for buttons to make possible to set currentTitle for each button
     
     @IBOutlet weak var aLable: UIButton!
     @IBOutlet weak var bLable: UIButton!
@@ -59,8 +58,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-// Configurate buttons
         
+        // set initial gradient
+        view.applyGradient(isVertical: true, colorArray: [.random, .black, .random])
+        
+        // Configurate buttons
         aLable.setTitle("A", for: .application)
         bLable.setTitle("B", for: .application)
         cLable.setTitle("C", for: .application)
@@ -84,30 +86,22 @@ class ViewController: UIViewController {
         eLable.configuration?.cornerStyle = .capsule
         fLable.configuration?.cornerStyle = .capsule
         gLable.configuration?.cornerStyle = .capsule
-        
-// make random gradient background
-        
-        self.view.applyGradient(isVertical: false, colorArray: [.random, .black, .random])
-    
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {
-      
+        
         playSound(named: sender.titleLabel?.text! ?? "")
-        view.applyGradient(isVertical: false, colorArray: [.random, .black, .random])
-    
-
- 
+        
+        // make random gradient background
+        view.applyGradient(isVertical: true, colorArray: [.random, .black, .random])
     }
     
-// Make function for play sonds
+    // Make function for play sonds
     
     func playSound(named soundName: String) {
-            let audioPath = Bundle.main.path(forResource: soundName, ofType: "wav")
-            player = try! AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
-            player.play()
-        }
-    
-    
+        let audioPath = Bundle.main.path(forResource: soundName, ofType: "wav")
+        player = try! AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
+        player.play()
+    }
 }
 
