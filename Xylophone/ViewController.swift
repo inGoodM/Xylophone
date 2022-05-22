@@ -59,7 +59,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-// Set title for each button
+// Configurate buttons
+        
         aLable.setTitle("A", for: .application)
         bLable.setTitle("B", for: .application)
         cLable.setTitle("C", for: .application)
@@ -68,8 +69,6 @@ class ViewController: UIViewController {
         fLable.setTitle("F", for: .application)
         gLable.setTitle("G", for: .application)
         
-    
-       
         aLable.configuration?.baseBackgroundColor = .red
         bLable.configuration?.baseBackgroundColor = .orange
         cLable.configuration?.baseBackgroundColor = .yellow
@@ -88,13 +87,14 @@ class ViewController: UIViewController {
         
 // make random gradient background
         
-        self.view.applyGradient(isVertical: false, colorArray: [.systemMint, .systemCyan, .systemBlue])
+        self.view.applyGradient(isVertical: false, colorArray: [.random, .black, .random])
     
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {
-        print(sender.titleLabel?.text as Any)
+      
         playSound(named: sender.titleLabel?.text! ?? "")
+        view.applyGradient(isVertical: false, colorArray: [.random, .black, .random])
     
 
  
